@@ -1,18 +1,20 @@
-from random import randint
+import random
 
 move_count = 0
 
 board = [
-  [None, None, None],
-  [None, None, None],
-  [None, None, None]
+    [None, None, None],
+    [None, None, None],
+    [None, None, None]
 ]
 
+
 def get_cell_value(v):
-  if v == None:
-    return ' '
-  else:
-    return v
+    if v is None:
+        return ' '
+    else:
+        return v
+
 
 def printboard():
     for i, row in enumerate(board):
@@ -48,11 +50,14 @@ def get_player_move():
 
 
 def ai_move():
-    while True:
-        a, b = randint(0, 2), randint(0, 2)
-        if board[a][b] is None:  # Check if the cell is empty
-            board[a][b] = 'o'  # Place 'o' for the AI move
-            break  # Exit loop once a valid move is made
+    # Create a list of all available cells
+    available_moves = [(i, j) for i in range(3) for j in range(3) if board[i][j] is None]
+
+    # Check if there are any moves left (the game might end on a full board)
+    if available_moves:
+        # Select a random cell from the available moves
+        a, b = random.choice(available_moves)
+        board[a][b] = 'o'  # Place the AI's move
 
 
 def victory():
@@ -114,4 +119,3 @@ while not victory():
         print("Victory is mine!!")
 
 printboard()
-
