@@ -1,5 +1,7 @@
 from random import randint
 
+move_count = 0
+
 board = [
   [None, None, None],
   [None, None, None],
@@ -94,7 +96,22 @@ while not victory():
     printboard()
     coord1, coord2 = get_player_move()
     board[coord2][coord1] = 'x'  # Place player's move
+    move_count += 1  # Increment move count
+
+    # Check if the board is full after player's move
+    if move_count == 9:
+        print("Game ends with a stalemate!")
+        break
+
     ai_move()  # AI makes its move
+    move_count += 1  # Increment move count again
+
+    # Check if the board is full after AI's move
+    if move_count == 9:
+        print("Game ends with a stalemate!")
+        break
+    if victory():
+        print("Victory is mine!!")
 
 printboard()
-print("Victory is mine!!")
+
